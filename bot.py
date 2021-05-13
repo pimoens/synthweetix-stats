@@ -7,6 +7,8 @@ import tweepy
 __author__ = 'Pieter Moens'
 __email__ = "pieter@pietermoens.be"
 
+from requests import RequestException
+
 
 class StatisticsType(Enum):
     NETWORK = 'Network'
@@ -126,11 +128,14 @@ class SynthweetixBot:
         logging.info('Running SynthweetixBot')
 
         logging.info(f'Fetching data from Synthetix Stats at {stats_endpoint}')
-        with requests.get(stats_endpoint) as resp:
-            r = resp.json()
+        try:
+            with requests.get(stats_endpoint) as resp:
+                r = resp.json()
 
-        logging.info('Sending tweets')
-        self.create_tweets(r)
+            logging.info('Sending tweets')
+            self.create_tweets(r)
+        except RequestException as e:
+            logging.warning(e)
 
         end = datetime.now()
         logging.info(f'Executed SynthweetixBot in {end - start}s')

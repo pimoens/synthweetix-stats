@@ -14,7 +14,8 @@ class BaseConfig:
     TWITTER_ACCESS_TOKEN = os.getenv('TWITTER_ACCESS_TOKEN', default='')
     TWITTER_ACCESS_SECRET = os.getenv('TWITTER_ACCESS_SECRET', default='')
 
-    SYNTHETIX_STATS_ENDPOINT = os.getenv('SYNTHETIX_STATS_ENDPOINT', default='https://stats.synthetix.io/api')
+    SYNTHETIX_STATS_ENDPOINT = os.getenv('SYNTHETIX_STATS_ENDPOINT',
+                                         default='https://synthetix-stats.herokuapp.com/api')
 
 
 class DevelopmentConfig(BaseConfig):

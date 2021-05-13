@@ -1,8 +1,7 @@
+from apscheduler.schedulers.blocking import BlockingScheduler
 import logging
 import os
-import threading
 
-from app import app
 from bot import SynthweetixBot
 from config import ConfigType, ConfigFactory
 
@@ -26,7 +25,7 @@ if __name__ == '__main__':
                          config.TWITTER_ACCESS_SECRET)
 
     # Run the bot
-    threading.Timer(config.INTERVAL, bot.execute, args=(config.SYNTHETIX_STATS_ENDPOINT,)).start()
-    bot.execute(config.SYNTHETIX_STATS_ENDPOINT)
+    scheduler = BlockingScheduler()
+    scheduler.add_job(bot.execute, "interval", seconds=config.INTERVAL.total_seconds())
 
-    app.run(host='0.0.0.0')
+    scheduler.start()

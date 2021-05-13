@@ -20,12 +20,12 @@ class BaseConfig:
 
 class DevelopmentConfig(BaseConfig):
     LOG_LEVEL = logging.DEBUG
-    INTERVAL = timedelta(minutes=1).total_seconds()
+    INTERVAL = timedelta(minutes=1)
 
 
 class ProductionConfig(BaseConfig):
     LOG_LEVEL = logging.INFO
-    INTERVAL = timedelta(hours=24).total_seconds()
+    INTERVAL = timedelta(hours=24)
 
 
 class ConfigType(Enum):

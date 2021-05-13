@@ -2,7 +2,7 @@ from datetime import datetime
 from enum import Enum
 import logging
 import requests
-import tweepy
+from tweepy import API, OAuthHandler, TweepError
 
 __author__ = 'Pieter Moens'
 __email__ = "pieter@pietermoens.be"
@@ -20,10 +20,10 @@ class StatisticsType(Enum):
 class SynthweetixBot:
 
     def __init__(self, key, secret, access_token, access_secret, debug=False):
-        auth = tweepy.OAuthHandler(key, secret)
+        auth = OAuthHandler(key, secret)
         auth.set_access_token(access_token, access_secret)
 
-        self.api = tweepy.API(auth)
+        self.api = API(auth)
         self.debug = debug
 
     def send_statistics(self, type_: StatisticsType, message):
@@ -33,7 +33,10 @@ class SynthweetixBot:
 
         logging.debug(message)
         if not self.debug:
-            self.api.update_status(message)
+            try:
+                self.api.update_status(message)
+            except TweepError as e:
+                logging.warning(e)
 
     def create_tweets(self, data):
         if StatisticsType.NETWORK.name in data:
@@ -110,15 +113,15 @@ class SynthweetixBot:
         ]
 
         currency_mapping = {
-            'CURVESUSDRWRDS': 'Curvepool sUSD',
-            'SHORTSETHRWRDS': 'Short sETH',
-            'SHORTSBTCRWRDS': 'Short sBTC'
+            'CURVESUSDRWRDS': 'sUSD',
+            'SHORTSETHRWRDS': 'sETH',
+            'SHORTSBTCRWRDS': 'sBTC'
         }
         for key, name in currency_mapping.items():
             if key in stats.keys():
                 currency = stats[key]
                 message.append(
-                    '{}: WEEKLY REWARDS = {}, APY = {}'.format(name, currency['WEEKLYRWRDSSNX'], currency['APY'])
+                    '{}: WEEKLY REWARDS = {:,.0f}, APY = {:.2f}%'.format(name, currency['WEEKLYRWRDSSNX'], currency['APY'])
                 )
 
         self.send_statistics(StatisticsType.YIELD_FARMING, '\n'.join(message))

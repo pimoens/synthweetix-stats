@@ -19,6 +19,7 @@ Note: Reference the [Synthetix Stats](https://stats.synthetix.io/) page for more
 
 Concerning data collection, I have opted not to scrape various APIs or the HTML pages.
 Instead I have contributed to the Synthetix Stats project and extended it with an API endpoint that exposes all the required statistics as a JSON payload.
+By doing this, the statistics can easily be consumed by not only this bot, but any future application that requires up-to-date statistics about Synthetix.
 
 More information on the changes can be found here at [https://github.com/pimoens/synthetixio-stats/tree/nextjs-api](https://github.com/pimoens/synthetixio-stats/tree/nextjs-api).
 

@@ -9,6 +9,7 @@ __email__ = "pieter@pietermoens.be"
 
 from requests import RequestException
 
+
 # Emojis: https://apps.timwhitlock.info/emoji/tables/unicode
 
 
@@ -61,13 +62,14 @@ class SynthweetixBot:
 
         message = [
             '$SNX = ${:.2f} ({:+.2f}%)'.format(snxprice, percentsnxchnge24h),
-            'MARKET CAP = ${:,.0f}'.format(snxmktcap),
-            'STAKED = ${:,.0f} ({:.2f}%)'.format(totalsnxlocked, percentsnxlocked),
+            'MARKET CAP = ${:,.0f}, STAKED = ${:,.0f} ({:.2f}%)'.format(snxmktcap,
+                                                                        totalsnxlocked,
+                                                                        percentsnxlocked),
             'ACTIVE C-RATIO = {:.2f}%'.format(activecratio),
             'NUMBER OF HOLDERS = {:,.0f}'.format(snxholdrs),
         ]
 
-        self.send_statistics(StatisticsType.NETWORK, ', '.join(message))
+        self.send_statistics(StatisticsType.NETWORK, '\n'.join(message))
 
     def create_staking_tweet(self, stats):
         snxstakingapy = stats['SNXSTKAPY'] * 100
@@ -78,15 +80,15 @@ class SynthweetixBot:
         snxstakrs = stats['SNXSTAKRS']
 
         message = [
-            'SNX STAKING APY = {:.2f}%'.format(snxstakingapy),
-            'SNX STAKING APY (REWARDS) = {:.2f}%'.format(snxstakingapysnx),
+            'SNX STAKING APY = {:.2f}%, WITH REWARDS = {:.2f}%'.format(snxstakingapy,
+                                                                       snxstakingapysnx),
             'REWARDS POOL = ${:,.0f}'.format(crrntfeerwpoolsnx),
-            'UNCLAIMED FEES & REWARDS = ${:,.0f}'.format(unclmfeesusd),
-            'UPCOMING FEES (NEXT PERIOD) = ${:,.0f}'.format(upcomingfeesusd),
+            'UNCLAIMED FEES & REWARDS = ${:,.0f}, UPCOMING = ${:,.0f}'.format(unclmfeesusd,
+                                                                              upcomingfeesusd),
             'NUMBER OF STAKERS = {:,.0f}'.format(snxstakrs)
         ]
 
-        self.send_statistics(StatisticsType.STAKING, ', '.join(message))
+        self.send_statistics(StatisticsType.STAKING, '\n'.join(message))
 
     def create_trading_tweet(self, stats):
         totaltrdvolume = stats['TOTALTRDVOLUME']
@@ -97,15 +99,14 @@ class SynthweetixBot:
         avgdailytrdrs = stats['AVGDAILYTRDRS']
 
         message = [
-            'TRADING VOLUME = ${:,.0f}'.format(totaltrdvolume),
-            'TRADING FEES = ${:,.0f}'.format(totlfees),
+            'TRADING VOLUME = ${:,.0f}, FEES = ${:,.0f}'.format(totaltrdvolume, totlfees),
             '24H EXCHANGE VOLUME = ${:,.0f}'.format(totdailyvolume),
             'NUMBER OF TRADES = {:,.0f}'.format(totlnotrdes),
-            'NUMBER OF UNIQUE TRADERS = {:,.0f}'.format(totalnounqtraders),
-            'AVERAGE DAILY TRADERS = {:,.0f}'.format(avgdailytrdrs)
+            'NUMBER OF UNIQUE TRADERS = {:,.0f}, AVG DAILY = {:,.0f}'.format(totalnounqtraders,
+                                                                             avgdailytrdrs),
         ]
 
-        self.send_statistics(StatisticsType.TRADING, ', '.join(message))
+        self.send_statistics(StatisticsType.TRADING, '\n'.join(message))
 
     def create_yieldfarming_tweet(self, stats):
         lndingapy = stats['LNDINGAPY'] * 100
@@ -123,7 +124,9 @@ class SynthweetixBot:
             if key in stats.keys():
                 currency = stats[key]
                 message.append(
-                    '{}: WEEKLY REWARDS = {:,.0f}, APY = {:.2f}%'.format(name, currency['WEEKLYRWRDSSNX'], currency['APY'])
+                    '{}: WEEKLY REWARDS = {:,.0f}, APY = {:.2f}%'.format(name,
+                                                                         currency['WEEKLYRWRDSSNX'],
+                                                                         currency['APY'])
                 )
 
         self.send_statistics(StatisticsType.YIELD_FARMING, '\n'.join(message))

@@ -1,3 +1,4 @@
 apscheduler==3.7.0
+pytz==2021.1
 requests==2.25.1
 tweepy==3.10.0

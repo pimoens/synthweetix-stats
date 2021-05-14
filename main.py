@@ -8,8 +8,7 @@ from config import ConfigType, ConfigFactory
 
 if __name__ == '__main__':
     # Configuration
-    app_settings = os.getenv('CONFIGURATION ', default='deployment')
-    print(app_settings)
+    app_settings = os.getenv('CONFIGURATION', default='development')
     type_ = ConfigType.reverse_lookup(app_settings)
     cfactory = ConfigFactory()
     config = cfactory.get(type_)

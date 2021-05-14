@@ -31,7 +31,7 @@ class SynthweetixBot:
     def send_statistics(self, type_: StatisticsType, message):
         message = f'\U0001F6A8 #Synthetix {type_.value} Statistics \U0001F6A8\n' \
                   f'{message}\n' \
-                  f'Full stats \U0001F449 https://stats.synthetix.io/'
+                  f'Full stats \U0001F447 https://stats.synthetix.io/'
 
         logging.debug(message)
         if not self.debug:

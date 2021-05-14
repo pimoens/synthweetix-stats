@@ -1,7 +1,9 @@
-from datetime import timedelta
+from apscheduler.triggers.cron import CronTrigger
+from apscheduler.triggers.interval import IntervalTrigger
 from enum import Enum
 import logging
 import os
+import pytz
 
 
 __author__ = 'Pieter Moens'
@@ -20,12 +22,14 @@ class BaseConfig:
 
 class DevelopmentConfig(BaseConfig):
     LOG_LEVEL = logging.DEBUG
-    INTERVAL = timedelta(minutes=1)
+
+    TRIGGER = IntervalTrigger(minutes=5)
 
 
 class ProductionConfig(BaseConfig):
     LOG_LEVEL = logging.INFO
-    INTERVAL = timedelta(hours=24)
+
+    TRIGGER = CronTrigger(hour=13, timezone=pytz.utc)
 
 
 class ConfigType(Enum):

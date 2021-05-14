@@ -26,8 +26,7 @@ if __name__ == '__main__':
 
     # Run the bot
     scheduler = BlockingScheduler()
-    scheduler.add_job(bot.execute, "interval",
-                      args=[config.SYNTHETIX_STATS_ENDPOINT],
-                      seconds=config.INTERVAL.total_seconds())
+    scheduler.add_job(bot.execute, config.TRIGGER,
+                      args=[config.SYNTHETIX_STATS_ENDPOINT])
 
     scheduler.start()

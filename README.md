@@ -61,14 +61,14 @@ Each type of statistics is communicated by a single tweet every day at 13:00 UTC
 
 #### Environment variables
 
-| Name                      | Description                                          | Default                                     |
-| :-------------:           | :-------------:                                      | :-----:                                      |
-| CONFIGURATION             | Configuration to run (`development` or `production`) | `development`                               |
-| TWITTER_CONSUMER_KEY      | Twitter Consumer Key                                 | `''`                                        |
-| TWITTER_CONSUMER_SECRET   | Twitter Consumer Secret                              | `''`                                        |
-| TWITTER_ACCESS_TOKEN      | Twitter OAuth Access Token                           | `''`                                        |
-| TWITTER_ACCESS_SECRET     | Twitter OAuth Access Secret                          | `''`                                        |
-| SYNTHETIX_STATS_ENDPOINT  | API Endpoint of the Synthetix Stats application      | `https://synthetix-stats.herokuapp.com/api` |
+| Name                      | Description                                                     | Default                                     |
+| :-------------:           | :-------------:                                                 | :-----:                                      |
+| CONFIGURATION             | Configuration to run (`development`, `production` or `cronjob`) | `development`                               |
+| TWITTER_CONSUMER_KEY      | Twitter Consumer Key                                            | `''`                                        |
+| TWITTER_CONSUMER_SECRET   | Twitter Consumer Secret                                         | `''`                                        |
+| TWITTER_ACCESS_TOKEN      | Twitter OAuth Access Token                                      | `''`                                        |
+| TWITTER_ACCESS_SECRET     | Twitter OAuth Access Secret                                     | `''`                                        |
+| SYNTHETIX_STATS_ENDPOINT  | API Endpoint of the Synthetix Stats application                 | `https://synthetix-stats.herokuapp.com/api` |
 
 ### Heroku
 

@@ -32,6 +32,12 @@ class ProductionConfig(BaseConfig):
     TRIGGER = CronTrigger(hour=13, timezone=pytz.utc)
 
 
+class CronJobConfig(ProductionConfig):
+    LOG_LEVEL = logging.INFO
+
+    TRIGGER = None
+
+
 class ConfigType(Enum):
     DEVELOPMENT = 'development'
     PRODUCTION = 'production'

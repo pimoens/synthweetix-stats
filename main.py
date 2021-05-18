@@ -26,8 +26,9 @@ if __name__ == '__main__':
     bot.execute(config.SYNTHETIX_STATS_ENDPOINT)
 
     # Run the bot periodically
-    scheduler = BlockingScheduler()
-    scheduler.add_job(bot.execute, config.TRIGGER,
-                      args=[config.SYNTHETIX_STATS_ENDPOINT])
+    if config.TRIGGER is not None:  # In case the bot is deployed as a Heroku or Docker cron job.
+        scheduler = BlockingScheduler()
+        scheduler.add_job(bot.execute, config.TRIGGER,
+                          args=[config.SYNTHETIX_STATS_ENDPOINT])
 
-    scheduler.start()
+        scheduler.start()

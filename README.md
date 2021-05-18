@@ -55,6 +55,11 @@ The bot is up and running at [https://twitter.com/synthweetix](https://twitter.c
   
 Each type of statistics is communicated by a single tweet every day at 13:00 UTC (easily configurable).
 
+**Preview**
+
+![preview](docs/example_network_tweet.png)
+
+
 ## Deployment
 
 ### Configuration
